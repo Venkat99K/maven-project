@@ -5,11 +5,3 @@ Check out our Latest DevOps PDF book.
 
 https://www.level-up.one/devops-pdf-book
 
-Team Work
-
-
-Hello World!
-
-This is test file
-
-Release Branch Update
