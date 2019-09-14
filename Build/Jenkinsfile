@@ -1,0 +1,31 @@
+#!/usr/bin/env groovy
+import hudson.model.*
+import jenkins.model.Jenkins
+import org.jenkinsci.plugins.workflow.steps.FlowInterruptedException
+import hudson.AbortException
+import java.text.SimpleDateFormat
+
+node{
+env.workspace = pwd()
+ stage('Checkout SCM'){
+			   checkout([$class: 'GitSCM',
+               branches: [[name: '*/master']], 
+               doGenerateSubmoduleConfigurations: false, 
+               extensions: [[$class: 'CleanBeforeCheckout']], 
+               submoduleCfg: [], 
+               userRemoteConfigs: [[url:'https://github.com/MounishRavikoti/maven-project.git']]])
+	}		   
+  stage ('Build'){
+		 sh 'mvn clean package'
+		}     
+		
+   stage ('Archiving'){
+   
+  dir( "$workspace/webapp/target"){
+   
+   archiveArtifacts '*.war'
+   }
+   
+   }
+   
+}		     
